@@ -17,7 +17,6 @@ jobs:
       fail-fast: false
       matrix:
         base:
-          - cli-tools
           - cli-tools-core
 
     steps:
@@ -99,6 +98,8 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
+          build-args: |
+            IMAGE=quay.io/cloudnativetoolkit/${{ matrix.base }}:alpine
           file: Containerfile
           push: ${{ github.event_name != 'pull_request' }}
           platforms: linux/amd64
