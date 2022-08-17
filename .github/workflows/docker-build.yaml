@@ -18,7 +18,7 @@ jobs:
       matrix:
         base:
           - cli-tools
-
+          - cli-tools-core
 
     steps:
       - name: Checkout
