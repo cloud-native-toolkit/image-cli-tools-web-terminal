@@ -17,7 +17,7 @@ jobs:
       fail-fast: false
       matrix:
         base:
-          - web-terminal-tooling-rhel8
+          - cli-tools
 
 
     steps:
@@ -85,7 +85,7 @@ jobs:
         with:
           # list of Docker images to use as base name for tags
           images: |
-            quay.io/cloudnativetoolkit/cli-tools-web-terminal
+            quay.io/cloudnativetoolkit/web-terminal
           # Docker tags based on the following events/attributes
           tags: |
             type=raw,value=${{ matrix.base }}
