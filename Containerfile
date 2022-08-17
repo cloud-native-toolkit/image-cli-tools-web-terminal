@@ -1,10 +1,10 @@
 ARG IMAGE="quay.io/wto/web-terminal-tooling:latest"
 FROM ${IMAGE}
 
-RUN curl -sL -o ./yq3 $(curl -sL https://api.github.com/repos/mikefarah/yq/releases/tags/3.4.1 | jq -r --arg NAME "yq_linux_$(if [[ "$TARGETPLATFORM" == "linux/arm64" ]]; then echo "arm64"; else echo "amd64"; fi)" '.assets[] | select(.name == $NAME) | .browser_download_url') && \
-    chmod +x ./yq3 && \
-    sudo mv ./yq3 /usr/bin/yq3 && \
-    yq3 --version
+# RUN curl -sL -o ./yq3 $(curl -sL https://api.github.com/repos/mikefarah/yq/releases/tags/3.4.1 | jq -r --arg NAME "yq_linux_$(if [[ "$TARGETPLATFORM" == "linux/arm64" ]]; then echo "arm64"; else echo "amd64"; fi)" '.assets[] | select(.name == $NAME) | .browser_download_url') && \
+#     chmod +x ./yq3 && \
+#     sudo mv ./yq3 /usr/bin/yq3 && \
+#     yq3 --version
 
 ## igc
 RUN curl -sL -o ./igc https://github.com/cloud-native-toolkit/ibm-garage-cloud-cli/releases/download/v${IGC_VERSION}/igc-${BASE_OS}-$(if [[ "$TARGETPLATFORM" == "linux/arm64" ]]; then echo "arm64"; else echo "x64"; fi) && \
