@@ -112,7 +112,7 @@ jobs:
         with:
           # list of Docker images to use as base name for tags
           images: |
-            quay.io/cloudnativetoolkit/github-terraform-runner
+            quay.io/cloudnativetoolkit/web-terminal
           # Docker tags based on the following events/attributes
           tags: |
             type=raw,value=${{ steps.variables.outputs.terraform }}-${{ matrix.base }}
