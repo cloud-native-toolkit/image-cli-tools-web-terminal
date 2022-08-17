@@ -1,4 +1,4 @@
-ARG IMAGE="registry.redhat.io/web-terminal/web-terminal-tooling-rhel8@sha256:70ce6db13153ae4ff09e648b51af4ea0827bec2df7489b79e357b16728b649ba"
+ARG IMAGE="quay.io/wto/web-terminal-tooling:latest"
 FROM ${IMAGE}
 
 RUN curl -sL -o ./yq3 $(curl -sL https://api.github.com/repos/mikefarah/yq/releases/tags/3.4.1 | jq -r --arg NAME "yq_linux_$(if [[ "$TARGETPLATFORM" == "linux/arm64" ]]; then echo "arm64"; else echo "amd64"; fi)" '.assets[] | select(.name == $NAME) | .browser_download_url') && \
