@@ -2,10 +2,10 @@ ARG IMAGE="quay.io/cloudnativetoolkit/cli-tools-core:alpine"
 FROM ${IMAGE}
 
 USER 0
-#COPY --chown=devops:group . .
-
 
 ENV HOME=/home/devops
+COPY --chown=devops:group . $HOME
+
 WORKDIR /home/devops
 
 RUN touch ${HOME}/.bashrc && \
