@@ -25,15 +25,5 @@ if ! whoami &> /dev/null; then
     echo "${USER_NAME:-user}:x:$(id -u):" >> /etc/group
   fi
 fi
-
-sleep 5s
-echo "echo \"\"" >> "${HOME}/.bashrc"      
-echo "echo \"  _______        _     ______                                _                        _   _             \"" >> "${HOME}/.bashrc"
-echo "echo \" |__   __|      | |   |___  /                     /\        | |                      | | (_)            \"" >> "${HOME}/.bashrc"
-echo "echo \"    | | ___  ___| |__    / / ___  _ __   ___     /  \  _   _| |_ ___  _ __ ___   __ _| |_ _  ___  _ __  \"" >> "${HOME}/.bashrc"
-echo "echo \"    | |/ _ \/ __| '_ \  / / / _ \| '_ \ / _ \   / /\ \| | | | __/ _ \| '_ \ _ \ / _\ | __| |/ _ \| '_ \ \"" >> "${HOME}/.bashrc"
-echo "echo \"    | |  __| (__| | | |/ /_| (_) | | | |  __/  / ____ | |_| | || (_) | | | | | | (_| | |_| | (_) | | | |\"" >> "${HOME}/.bashrc"
-echo "echo \"    |_|\___|\___|_| |_/_____\___/|_| |_|\___| /_/    \_\__,_|\__\___/|_| |_| |_|\__,_|\__|_|\___/|_| |_|\"" >> "${HOME}/.bashrc"
-echo "echo \"\"" >> "${HOME}/.bashrc"                                                                                                        
                                                           
 exec "$@"
