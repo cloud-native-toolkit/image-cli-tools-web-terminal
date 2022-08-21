@@ -17,9 +17,9 @@ jobs:
       fail-fast: false
       matrix:
         base:
-          - cli-tools-core:v1.4.0
-          - cli-tools-ibmcloud:v0.4.0
-          - cli-tools:v2.2.0
+          - cli-tools-core:v1.4.1
+          - cli-tools-ibmcloud:v0.4.1
+          - cli-tools:v2.2.1
         version:
           - v1.2
 
