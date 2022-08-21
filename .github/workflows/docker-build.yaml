@@ -111,8 +111,8 @@ jobs:
           echo "Latest enabled: $LATEST_ENABLED"
           echo "::set-output name=latest-enabled::$LATEST_ENABLED"
           
-          echo "Base image: $BASE_IMAGE"
-          echo "::set-output name=base-image::$BASE_IMAGE"
+          echo "Base image: $BASE_NAME"
+          echo "::set-output name=base-image::$BASE_NAME"
           
           echo "Base tag: $BASE_TAG"
           echo "::set-output name=base-tag::$BASE_TAG"
