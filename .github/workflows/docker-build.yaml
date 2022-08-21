@@ -17,10 +17,9 @@ jobs:
       fail-fast: false
       matrix:
         base:
-          - terraform
-          - cli-tools-core
-          - cli-tools-ibmcloud
-          - cli-tools
+          - cli-tools-core:v1.4.0
+          - cli-tools-ibmcloud:v0.4.0
+          - cli-tools:v2.2.0
         version:
           - v1.2
 
@@ -57,8 +56,14 @@ jobs:
         run: |
           SHORT_TERRAFORM=${{ matrix.version }}
           
+          BASE_NAME=$(echo "${{ matrix.base }}" | sed -E "s/(.*):(.*)/\1/g")
+          BASE_VERSION=$(echo "${{ matrix.base }}" | sed -E "s/(.*):(.*)/\2/g")
+          BASE_TAG="v1.2-${BASE_VERSION}-alpine"
+          
+          MAIN_IMAGE="cli-tools-core"
+          
           SHORT_TAG_ENABLED="false"
-          if [[ "${{ matrix.base }}" == "cli-tools" ]]; then
+          if [[ "${BASE_NAME}" == "${MAIN_IMAGE}" ]]; then
             SHORT_TAG_ENABLED="true"
           fi
           
@@ -67,7 +72,7 @@ jobs:
           if [[ "${SHORT_TERRAFORM}" == "${TERRAFORM_LATEST}" ]]; then
             BASE_ENABLED="true"
             
-            if [[ "${{ matrix.base }}" == "cli-tools-core" ]]; then
+            if [[ "${BASE_NAME}" == "${MAIN_IMAGE}" ]]; then
               LATEST_ENABLED="true"
             fi
           fi
@@ -78,7 +83,7 @@ jobs:
           if [[ "${GITHUB_REF}" =~ refs/tags ]] && [[ "${RELEASE_TAG}" != "main" ]]; then
             RELEASE_TAG_ENABLED="true"
           
-            if [[ "${{ matrix.base }}" == "cli-tools" ]]; then
+            if [[ "${{ matrix.base }}" == "${MAIN_IMAGE}" ]]; then
               RELEASE_TAG_SHORT_ENABLED="true"
             fi
           else
@@ -105,6 +110,12 @@ jobs:
           
           echo "Latest enabled: $LATEST_ENABLED"
           echo "::set-output name=latest-enabled::$LATEST_ENABLED"
+          
+          echo "Base image: $BASE_IMAGE"
+          echo "::set-output name=base-image::$BASE_IMAGE"
+          
+          echo "Base tag: $BASE_TAG"
+          echo "::set-output name=base-tag::$BASE_TAG"
 
       - name: Docker CNTK meta ${{ matrix.base }}:${{ matrix.version }}
         id: cntk-meta
@@ -128,7 +139,7 @@ jobs:
           context: .
           file: Containerfile
           build-args: |
-            IMAGE=quay.io/cloudnativetoolkit/${{ matrix.base }}:v1.2-alpine
+            IMAGE=quay.io/cloudnativetoolkit/${{ steps.variables.outputs.base-image }}:${{ steps.variables.outputs.base-tag }}
           push: ${{ github.event_name != 'pull_request' }}
           platforms: linux/amd64
           tags: ${{ steps.cntk-meta.outputs.tags }}
