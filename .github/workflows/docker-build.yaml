@@ -83,7 +83,7 @@ jobs:
           if [[ "${GITHUB_REF}" =~ refs/tags ]] && [[ "${RELEASE_TAG}" != "main" ]]; then
             RELEASE_TAG_ENABLED="true"
           
-            if [[ "${{ matrix.base }}" == "${MAIN_IMAGE}" ]]; then
+            if [[ "${BASE_NAME}" == "${MAIN_IMAGE}" ]]; then
               RELEASE_TAG_SHORT_ENABLED="true"
             fi
           else
@@ -126,11 +126,11 @@ jobs:
             quay.io/cloudnativetoolkit/web-terminal
           # Docker tags based on the following events/attributes
           tags: |
-            type=raw,value=${{ steps.variables.outputs.terraform }}-${{ matrix.base }}
+            type=raw,value=${{ steps.variables.outputs.terraform }}-${{ steps.variables.outputs.base-image }}
             type=raw,value=${{ steps.variables.outputs.terraform }},enable=${{ steps.variables.outputs.short-enabled }}
-            type=raw,value=${{ steps.variables.outputs.terraform }}-${{ steps.variables.outputs.release-tag }}-${{ matrix.base }},enable=${{ steps.variables.outputs.release-tag-enabled }}
+            type=raw,value=${{ steps.variables.outputs.terraform }}-${{ steps.variables.outputs.release-tag }}-${{ steps.variables.outputs.base-image }},enable=${{ steps.variables.outputs.release-tag-enabled }}
             type=raw,value=${{ steps.variables.outputs.terraform }}-${{ steps.variables.outputs.release-tag }},enable=${{ steps.variables.outputs.release-tag-short-enabled }}
-            type=raw,value=${{ matrix.base }},enable=${{ steps.variables.outputs.base-enabled }}
+            type=raw,value=${{ steps.variables.outputs.base-image }},enable=${{ steps.variables.outputs.base-enabled }}
             type=raw,value=latest,enable=${{ steps.variables.outputs.latest-enabled }}
 
       - name: Build and push ${{ matrix.base }}:${{ matrix.version }}
