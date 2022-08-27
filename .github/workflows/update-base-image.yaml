@@ -38,14 +38,20 @@ jobs:
           
           FILE=".github/workflows/docker-build.yaml"
           
-          CURRENT_VERSION=$(cat "${FILE}" | grep -E "${BASE_IMAGE}:" | sed -E "s/.*(v[0-9]+[.][0-9]+[.][0-9]+)-.*/\1/g")
+          CURRENT_VERSION=$(cat "${FILE}" | grep -E "${BASE_IMAGE}:" | sed -E "s/.*(v[0-9]+[.][0-9]+[.][0-9]+).*/\1/g")
           
           if [[ -z "${CURRENT_VERSION}" ]]; then
             echo "Unable to find current version for base image: ${BASE_IMAGE}"
             exit 0
           fi
+          
+          echo "Updating ${CURRENT_VERSION} to ${NEW_VERSION} for image ${BASE_IMAGE} in ${FILE}"
         
           cat "${FILE}" | sed "s~${BASE_IMAGE}:${CURRENT_VERSION}~${BASE_IMAGE}:${NEW_VERSION}~g" > "${FILE}.bak"
+          
+          echo ""
+          echo "Updated file"
+          cat "${FILE}.bak"
           cp "${FILE}.bak" "${FILE}"
           rm "${FILE}.bak"
 
