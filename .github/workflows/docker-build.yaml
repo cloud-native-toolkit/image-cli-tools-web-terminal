@@ -19,7 +19,7 @@ jobs:
         base:
           - cli-tools-core:v1.4.7
           - cli-tools-ibmcloud:v0.4.11
-          - cli-tools:v2.2.6
+          - cli-tools:v2.2.7
         version:
           - v1.2
 
