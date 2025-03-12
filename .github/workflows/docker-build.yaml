@@ -18,7 +18,7 @@ jobs:
       matrix:
         base:
           - cli-tools-core:v2.0.3
-          - cli-tools-ibmcloud:v0.8.3
+          - cli-tools-ibmcloud:v0.8.4
           - cli-tools:v3.0.2
         version:
           - v1.6
